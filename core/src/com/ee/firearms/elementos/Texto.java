@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.math.Vector2;
@@ -38,6 +39,10 @@ public class Texto {
 	
 	public void dibujar() {
 		fuente.draw(Render.batch, texto, x, y);
+	}
+	
+	public void dibujar(SpriteBatch batch, String texto, float x, float y) {
+		fuente.draw(batch, texto, x, y);
 	}
 	
 	public void setColor(Color color) {
