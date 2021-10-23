@@ -1,15 +1,18 @@
 package com.ee.firearms.elementos;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 
-public class Player extends Sprite {
+public class Player extends Sprite implements InputProcessor {
 
 	private Vector2 velocity = new Vector2();;
 	private float speed = 60 * 2, gravity = 60 * 1.8f;
+	private boolean canJump;
 	private TiledMapTileLayer collisionLayer;
 	
 	public Player(Sprite sprite, TiledMapTileLayer collisionLayer) {
@@ -78,7 +81,7 @@ public class Player extends Sprite {
 
 		setY(getY() + velocity.y * delta);
 
-		if (velocity.y < 0) {
+		if (velocity.y < 0) { // Cae
 			// Abajo a la izquierda
 			collisionY = collisionLayer.getCell((int) (getX() / tileWidth), (int) (getY() / tileHeight))
 					.getTile().getProperties().containsKey("blocked");
@@ -95,7 +98,9 @@ public class Player extends Sprite {
 						.getTile().getProperties().containsKey("blocked");
 			}
 			
-		} else if (velocity.y > 0) {
+			canJump = collisionY;
+			
+		} else if (velocity.y > 0) { // Sube
 			// Arriba a la izquierda
 			collisionY = collisionLayer.getCell((int) (getX() / tileWidth), (int) ((getY() + getHeight()) / tileHeight))
 					.getTile().getProperties().containsKey("blocked");
@@ -150,6 +155,67 @@ public class Player extends Sprite {
 
 	public void setCollisionLayer(TiledMapTileLayer collisionLayer) {
 		this.collisionLayer = collisionLayer;
+	}
+
+	// Entradas
+	@Override
+	public boolean keyDown(int keycode) {
+		switch(keycode) {
+		case Keys.W:
+			if(canJump) {
+				velocity.y = speed;
+				canJump = false;
+			}
+			break;
+		case Keys.A:
+			velocity.x = -speed;
+			break;
+		case Keys.D:
+			velocity.x = speed;
+			break;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		switch(keycode) {
+		case Keys.A:
+		case Keys.D:
+			velocity.x = 0;
+			break;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(float amountX, float amountY) {
+		return false;
 	}
 	
 }

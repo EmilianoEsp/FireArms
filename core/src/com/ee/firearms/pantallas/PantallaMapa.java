@@ -1,5 +1,6 @@
 package com.ee.firearms.pantallas;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -32,25 +33,31 @@ public class PantallaMapa implements Screen {
 		player = new Player(new Sprite(new Texture("personajes/SpriteIdle.png")), (TiledMapTileLayer) map.getLayers().get(0));
 		
 		player.setPosition(14 * player.getCollisionLayer().getTileWidth(), (player.getCollisionLayer().getTileHeight() - 16) * player.getCollisionLayer().getTileHeight());
+	
+		Gdx.input.setInputProcessor(player);
 	}
 
 	@Override
 	public void render(float delta) {
 		Render.limpiarPantalla(0, 0, 0, 1);
 		
+		camera.position.set(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2, 0);
+		camera.update();
+		
 		renderer.setView(camera);
-		renderer.render();
 		
 		renderer.getBatch().begin();
+		renderer.renderTileLayer((TiledMapTileLayer) map.getLayers().get("Background"));
 		player.draw(renderer.getBatch());
+		renderer.renderTileLayer((TiledMapTileLayer) map.getLayers().get("Foreground"));
 		renderer.getBatch().end();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		camera.viewportWidth = width;
-		camera.viewportHeight = height;
-		camera.update();
+		camera.viewportWidth = width / 2.5f;
+		camera.viewportHeight = height / 2.5f;
+		//camera.update();
 	}
 
 	@Override
