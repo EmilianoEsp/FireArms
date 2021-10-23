@@ -18,13 +18,7 @@ public class FireArms extends Game {
 	@Override
 	public void render () {
 		super.render();
-		//update();
 	}
-	
-//	private void update() {
-//		cont++;
-//		crash.setX(cont);
-//	}
 
 	@Override
 	public void dispose () {

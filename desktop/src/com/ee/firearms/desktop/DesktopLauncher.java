@@ -9,11 +9,11 @@ import com.ee.firearms.utiles.Config;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "FireArms";
+		config.title = Config.TITLE;
 		config.width = Config.ANCHO;
 		config.height = Config.ALTO;
 		config.resizable = false;
-		config.addIcon("icon_32x32.png", FileType.Internal);
+		config.addIcon(Config.ICONO, FileType.Internal);
 		new LwjglApplication(new FireArms(), config);
 	}
 }

@@ -3,6 +3,7 @@ package com.ee.firearms.io;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.ee.firearms.pantallas.PantallaMenu;
+import com.ee.firearms.pantallas.PantallaOpciones;
 import com.ee.firearms.utiles.Config;
 
 public class Entradas implements InputProcessor {
@@ -16,6 +17,12 @@ public class Entradas implements InputProcessor {
 	
 	public Entradas(PantallaMenu app) {
 		this.app = app;
+	}
+	
+	PantallaOpciones appOpc;
+	
+	public Entradas(PantallaOpciones appOpc) {
+		this.appOpc = appOpc;
 	}
 	
 	@Override

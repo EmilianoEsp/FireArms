@@ -45,14 +45,14 @@ public class PantallaPrueba implements Screen {
 		batch = new SpriteBatch();
 		
 		// Cargar las texturas
-		dropImage = new Texture(Gdx.files.internal("drop.png"));
-		bucketImage = new Texture(Gdx.files.internal("bucket.png"));
+		dropImage = new Texture(Gdx.files.internal("objetos/drop.png"));
+		bucketImage = new Texture(Gdx.files.internal("objetos/bucket.png"));
 		
 		// Cargar los sonidos
-		dropSound = Gdx.audio.newSound(Gdx.files.internal("./sonidos/dropSound.wav"));
-		rainMusic = Gdx.audio.newMusic(Gdx.files.internal("./musica/rainMusic.mp3"));
+		dropSound = Gdx.audio.newSound(Gdx.files.internal("sonidos/dropSound.wav"));
+		rainMusic = Gdx.audio.newMusic(Gdx.files.internal("musica/rainMusic.mp3"));
 		
-		// Reproducir la música
+		// Reproducir la musica
 		rainMusic.setLooping(true);
 		rainMusic.play();
 		

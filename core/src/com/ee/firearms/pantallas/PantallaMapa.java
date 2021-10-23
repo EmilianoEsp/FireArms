@@ -2,9 +2,13 @@ package com.ee.firearms.pantallas;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.ee.firearms.elementos.Player;
 import com.ee.firearms.utiles.Render;
 
 public class PantallaMapa implements Screen {
@@ -12,6 +16,8 @@ public class PantallaMapa implements Screen {
 	private TiledMap map;
 	private OrthogonalTiledMapRenderer renderer;
 	private OrthographicCamera camera;
+	
+	private Player player;
 	
 	@Override
 	public void show() {
@@ -22,6 +28,10 @@ public class PantallaMapa implements Screen {
 		renderer = new OrthogonalTiledMapRenderer(map);
 		
 		camera = new OrthographicCamera();
+		
+		player = new Player(new Sprite(new Texture("personajes/SpriteIdle.png")), (TiledMapTileLayer) map.getLayers().get(0));
+		
+		player.setPosition(14 * player.getCollisionLayer().getTileWidth(), (player.getCollisionLayer().getTileHeight() - 16) * player.getCollisionLayer().getTileHeight());
 	}
 
 	@Override
@@ -30,6 +40,10 @@ public class PantallaMapa implements Screen {
 		
 		renderer.setView(camera);
 		renderer.render();
+		
+		renderer.getBatch().begin();
+		player.draw(renderer.getBatch());
+		renderer.getBatch().end();
 	}
 
 	@Override
@@ -58,6 +72,7 @@ public class PantallaMapa implements Screen {
 	public void dispose() {
 		map.dispose();
 		renderer.dispose();
+		player.getTexture().dispose();
 	}
 
 }
