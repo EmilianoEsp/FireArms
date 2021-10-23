@@ -22,13 +22,13 @@ public class PantallaPrueba implements Screen {
 
 	private Rectangle bucket;
 
-	/*Imágenes*/
+	/*Imagenes*/
 	private Texture dropImage;
 	private Texture bucketImage;
 	/*Sonidos*/
 	private Sound dropSound;
 	private Music rainMusic;
-	/*Cámara y SpriteBatch*/
+	/*Camara y SpriteBatch*/
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	/*Raindrops*/
@@ -37,7 +37,7 @@ public class PantallaPrueba implements Screen {
 
 	@Override
 	public void show(){
-		// Cámara
+		// Camara
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false,800,480);
 		
@@ -71,7 +71,7 @@ public class PantallaPrueba implements Screen {
 	public void render(float delta){
 		ScreenUtils.clear(0,0,0.2f,1);
 		
-		// Buena práctica
+		// Buena practica
 		camera.update();
 		
 		// Renderizar
