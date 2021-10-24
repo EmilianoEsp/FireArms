@@ -1,11 +1,12 @@
 package com.ee.firearms.elementos;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Sprite implements InputProcessor {
@@ -14,6 +15,8 @@ public class Player extends Sprite implements InputProcessor {
 	private float speed = 60 * 2, gravity = 60 * 1.8f;
 	private boolean canJump;
 	private TiledMapTileLayer collisionLayer;
+	
+	private String blockedKey = "blocked";
 	
 	public Player(Sprite sprite, TiledMapTileLayer collisionLayer) {
 		super(sprite);
@@ -42,35 +45,29 @@ public class Player extends Sprite implements InputProcessor {
 		
 		if (velocity.x < 0) {
 			// Arriba a la izquierda
-			collisionX = collisionLayer.getCell((int) (getX() / tileWidth), (int) (getY() + getHeight() / tileHeight))
-					.getTile().getProperties().containsKey("blocked");
+			collisionX = isCellBlocked(getX(), getY() + getHeight());
 
 			// Medio a la izquierda
 			if(!collisionX) {
-				collisionX = collisionLayer.getCell((int) (getX() / tileWidth), (int) ((getY() + getHeight() / 2) / tileHeight))
-						.getTile().getProperties().containsKey("blocked");
+				collisionX = isCellBlocked(getX(), getY() + getHeight() / 2);
 			}
 			
 			// Abajo a la izquierda
 			if(!collisionX) {
-				collisionX = collisionLayer.getCell((int) (getX() / tileWidth), (int) (getY() / tileHeight))
-						.getTile().getProperties().containsKey("blocked");
+				collisionX = isCellBlocked(getX(), getY());
 			}
 		} else if (velocity.x > 0) {
 			// Arriba a la derecha
-			collisionX = collisionLayer.getCell((int) ((getX() + getWidth()) / tileWidth), (int) ((getY() + getHeight()) / tileHeight))
-					.getTile().getProperties().containsKey("blocked");
+			collisionX = isCellBlocked(getX() + getWidth(), getY() + getHeight());
 			
 			// Medio a la derecha
 			if(!collisionX) {
-				collisionX = collisionLayer.getCell((int) ((getX() + getWidth()) / tileWidth), (int) ((getY() + getHeight() / 2) / tileHeight))
-						.getTile().getProperties().containsKey("blocked");
+				collisionX = isCellBlocked(getX() + getWidth(), getY() + getHeight() / 2);
 			}
 			
 			// Abajo a la derecha
 			if(!collisionX) {
-				collisionX = collisionLayer.getCell((int) ((getX() + getWidth()) / tileWidth), (int) (getY() / tileHeight))
-						.getTile().getProperties().containsKey("blocked");
+				collisionX = isCellBlocked(getX() + getWidth(), getY());
 			}
 		}
 		
@@ -79,42 +76,36 @@ public class Player extends Sprite implements InputProcessor {
 			velocity.x = 0;
 		}
 
-		setY(getY() + velocity.y * delta);
+		setY(getY() + velocity.y * delta * 5f);
 
 		if (velocity.y < 0) { // Cae
 			// Abajo a la izquierda
-			collisionY = collisionLayer.getCell((int) (getX() / tileWidth), (int) (getY() / tileHeight))
-					.getTile().getProperties().containsKey("blocked");
+			collisionY = isCellBlocked(getX(), getY());
 			
 			// Abajo al medio
 			if(!collisionY) {
-				collisionY = collisionLayer.getCell((int) ((getX() + getWidth() / 2) / tileWidth), (int) (getY() / tileHeight))
-						.getTile().getProperties().containsKey("blocked");
+				collisionY = isCellBlocked(getX() + getWidth() / 2, getY());
 			}
 			
 			// Abajo a la derecha
 			if(!collisionY) {
-				collisionY = collisionLayer.getCell((int) ((getX() + getWidth()) / tileWidth), (int) (getY() / tileHeight))
-						.getTile().getProperties().containsKey("blocked");
+				collisionY = isCellBlocked(getX() + getWidth(), getY());
 			}
 			
 			canJump = collisionY;
 			
 		} else if (velocity.y > 0) { // Sube
 			// Arriba a la izquierda
-			collisionY = collisionLayer.getCell((int) (getX() / tileWidth), (int) ((getY() + getHeight()) / tileHeight))
-					.getTile().getProperties().containsKey("blocked");
+			collisionY = isCellBlocked(getX(), getY() + getHeight());
 			
 			// Arriba al medio
 			if(!collisionY) {
-				collisionY = collisionLayer.getCell((int) ((getX() + getWidth() / 2) / tileWidth), (int) ((getY() + getHeight()) / tileHeight))
-						.getTile().getProperties().containsKey("blocked");
+				collisionY = isCellBlocked(getX() + getWidth() / 2, getY() + getHeight());
 			}
 			
 			// Arriba a la derecha
 			if(!collisionY) {
-				collisionY = collisionLayer.getCell((int) ((getX() + getWidth()) / tileWidth), (int) ((getY() + getHeight()) / tileHeight))
-						.getTile().getProperties().containsKey("blocked");
+				collisionY = isCellBlocked(getX() + getWidth(), getY() + getHeight());
 			}
 		}
 		
@@ -123,6 +114,11 @@ public class Player extends Sprite implements InputProcessor {
 			velocity.y = 0;
 		}
 		
+	}
+	
+	private boolean isCellBlocked(float x, float y) {
+		Cell cell = collisionLayer.getCell((int) (x / collisionLayer.getTileWidth()), (int) (y / collisionLayer.getTileHeight()));
+		return cell != null && cell.getTile() != null && cell.getTile().getProperties().containsKey(blockedKey);
 	}
 
 	public Vector2 getVelocity() {

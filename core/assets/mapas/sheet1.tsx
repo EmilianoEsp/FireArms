@@ -5,4 +5,24 @@
  <tile id="8" type="blocked"/>
  <tile id="23" type="blocked"/>
  <tile id="24" type="blocked"/>
+ <tile id="44" type="animation">
+  <properties>
+   <property name="animation" value="color"/>
+  </properties>
+ </tile>
+ <tile id="45" type="animation">
+  <properties>
+   <property name="animation" value="color"/>
+  </properties>
+ </tile>
+ <tile id="46" type="animation">
+  <properties>
+   <property name="animation" value="color"/>
+  </properties>
+ </tile>
+ <tile id="47" type="animation">
+  <properties>
+   <property name="animation" value="color"/>
+  </properties>
+ </tile>
 </tileset>
