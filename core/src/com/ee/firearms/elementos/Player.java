@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Sprite implements InputProcessor {
 
-	private Vector2 velocity = new Vector2();;
+	private Vector2 velocity = new Vector2();
 	private float speed = 60 * 2, gravity = 60 * 1.8f;
 	private boolean canJump;
 	private TiledMapTileLayer collisionLayer;
@@ -23,9 +23,9 @@ public class Player extends Sprite implements InputProcessor {
 		this.collisionLayer = collisionLayer;
 	}
 	
-	public void draw(SpriteBatch spriteBatch) {
+	public void draw(SpriteBatch batch) {
 		update(Gdx.graphics.getDeltaTime());
-		super.draw(spriteBatch);
+		super.draw(batch);
 	}
 	
 	public void update(float delta) {
@@ -162,12 +162,15 @@ public class Player extends Sprite implements InputProcessor {
 				velocity.y = speed;
 				canJump = false;
 			}
+			System.out.println("Presionaste la W");
 			break;
 		case Keys.A:
 			velocity.x = -speed;
+			System.out.println("Presionaste la A");
 			break;
 		case Keys.D:
 			velocity.x = speed;
+			System.out.println("Presionaste la D");
 			break;
 		}
 		return true;
