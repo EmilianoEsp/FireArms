@@ -31,6 +31,7 @@ import com.badlogic.gdx.math.Polyline;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.ee.firearms.elementos.Player;
+import com.ee.firearms.utiles.Recursos;
 import com.ee.firearms.utiles.Render;
 
 public class PantallaMapa implements Screen {
@@ -58,6 +59,7 @@ public class PantallaMapa implements Screen {
 		Gdx.gl.glLineWidth(3);
 		
 		camera = new OrthographicCamera();
+		camera.setToOrtho(false,800,480);
 		
 		player = new Player(new Sprite(new Texture("personajes/SpriteIdle.png")), (TiledMapTileLayer) map.getLayers().get(0));
 		
@@ -66,9 +68,9 @@ public class PantallaMapa implements Screen {
 		Gdx.input.setInputProcessor(player);
 		
 		//Animated Tiles
-		Array<StaticTiledMapTile> frameTiles = new Array<StaticTiledMapTile>(2);
+		Array<StaticTiledMapTile> frameTiles = new Array<StaticTiledMapTile>(4);
 		
-		Iterator<TiledMapTile> tiles = map.getTileSets().getTileSet("sheet1").iterator();
+		Iterator<TiledMapTile> tiles = map.getTileSets().getTileSet(Recursos.SHEET).iterator();
 		while(tiles.hasNext()) {
 			TiledMapTile tile = tiles.next();
 			if(tile.getProperties().containsKey("animation") && tile.getProperties().get("animation", String.class).equals("color")) {
@@ -80,20 +82,20 @@ public class PantallaMapa implements Screen {
 		
 		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("background");
 		
-		for(int x = 0; x < layer.getWidth(); x++) {
+		/*for(int x = 0; x < layer.getWidth(); x++) {
 			for(int y = 0; y < layer.getHeight(); y++) {
 				Cell cell = layer.getCell(x, y);
 				if(cell.getTile().getProperties().containsKey("animation") && cell.getTile().getProperties().get("animation", String.class).equals("color")) {
 					cell.setTile(animatedTile);
 				}
 			}
-		}
+		}*/
 	}
 
 	@Override
 	public void render(float delta) {
 		Render.limpiarPantalla(0, 0, 0, 1);
-		
+		Render.batch.setProjectionMatrix(camera.combined);
 		camera.position.set(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2, 0);
 		camera.update();
 		
@@ -143,8 +145,8 @@ public class PantallaMapa implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		camera.viewportWidth = width / 2.5f;
-		camera.viewportHeight = height / 2.5f;
+		//camera.viewportWidth = width / 2.5f;
+		//camera.viewportHeight = height / 2.5f;]
 		//camera.update();
 	}
 

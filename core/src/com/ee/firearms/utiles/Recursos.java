@@ -14,4 +14,6 @@ public class Recursos {
 	
 	// Musica
 	public static final String MUSICAOPCIONES = "musica/Music_MenuOpc.wav";
+	
+	public static final String SHEET = "sheet1";
 }
