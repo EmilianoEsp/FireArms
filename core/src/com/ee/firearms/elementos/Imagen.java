@@ -15,7 +15,7 @@ public class Imagen {
 	}
 	
 	public void dibujar() {
-		s.draw(Render.batch);
+		s.draw(Render.sb);
 	}
 	
 	public void setTransparencia(float a) {

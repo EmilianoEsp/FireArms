@@ -19,8 +19,8 @@ public class PantallaMenu implements Screen {
 	
 	Texto opciones[] = new Texto[4];
 	String textos[] = {
-						"Nueva partida",
-						"Online",
+						"Un jugador",
+						"Multijugador",
 						"Opciones",
 						"Salir"
 					  };
@@ -41,27 +41,29 @@ public class PantallaMenu implements Screen {
 	public void show() {
 		fondo = new Imagen(Recursos.FONDOMENU_1);
 		fondo.setSize(Config.ANCHO, Config.ALTO);
-		b = Render.batch;
+		b = Render.sb;
 		sr = new ShapeRenderer();
 
 		Gdx.input.setInputProcessor(entradas);
 
 		int avance = 30;
 		
-		test = new Texto(Recursos.FUENTEMENU, 40, Color.WHITE, true);
+		test = new Texto(Recursos.FUENTEMENU, 25, Color.WHITE, true);
 		test.setY(100);
 		
 		for (int i = 0; i < opciones.length; i++) {
-			opciones[i] = new Texto(Recursos.FUENTEMENU, 60, Color.WHITE, true);
+			opciones[i] = new Texto(Recursos.FUENTEMENU, 50, Color.WHITE, true);
 			opciones[i].setTexto(textos[i]);
 			opciones[i].setPosition((Config.ANCHO / 2) - (opciones[i].getAncho() / 2),
 					((Config.ALTO / 2) + (opciones[0].getAlto() / 2)) - ((opciones[i].getAlto() * i) + (avance * i)));
 		}
+		
 	}
 
 	@Override
 	public void render(float delta) {
 		Render.limpiarPantalla(0, 0, 0, 0);
+		
 		b.begin();
 		fondo.dibujar();
 	
@@ -117,12 +119,34 @@ public class PantallaMenu implements Screen {
 			mouseArriba = false;
 		}
 		
-		for (int i = 0; i < opciones.length; i++) {
-			if (i == (opc - 1)) {
-				opciones[i].setColor(Color.YELLOW);
-			} else {
-				opciones[i].setColor(Color.WHITE);
-			}
+//		for (int i = 0; i < opciones.length; i++) {
+//			if (i == (opc - 1)) {
+//				opciones[i].setColor(Color.YELLOW);
+//			} else {
+//				opciones[i].setColor(Color.WHITE);
+//			}
+//		}
+		
+		if(opc == 1) {
+			opciones[1].setColor(Color.WHITE);
+			opciones[3].setColor(Color.WHITE);
+			
+			opciones[0].setColor(Color.YELLOW);
+		} else if(opc == 2) {
+			opciones[0].setColor(Color.WHITE);
+			opciones[2].setColor(Color.WHITE);
+			
+			opciones[1].setColor(Color.YELLOW);
+		} else if(opc == 3) {
+			opciones[1].setColor(Color.WHITE);
+			opciones[3].setColor(Color.WHITE);
+			
+			opciones[2].setColor(Color.YELLOW);
+		} else if(opc == 4) {
+			opciones[0].setColor(Color.WHITE);
+			opciones[2].setColor(Color.WHITE);
+			
+			opciones[3].setColor(Color.YELLOW);
 		}
 
 		if ( (entradas.isEnter()) || (entradas.isClick()) ) {
@@ -133,7 +157,7 @@ public class PantallaMenu implements Screen {
 			} else if ( (opc == 3) && (entradas.isEnter()) || ( (opc == 3) && (entradas.isClick()) && (mouseArriba) ) ) {
 				Render.app.setScreen(new PantallaOpciones());
 			} else if ( (opc == 4) && (entradas.isEnter()) || ( (opc == 4) && (entradas.isClick()) && (mouseArriba) ) ) {
-				Gdx.app.exit();
+				Render.salir();
 			}
 		}
 		
@@ -180,6 +204,7 @@ public class PantallaMenu implements Screen {
 
 	@Override
 	public void dispose() {
-
+		Render.dispose();
+		sr.dispose();
 	}
 }

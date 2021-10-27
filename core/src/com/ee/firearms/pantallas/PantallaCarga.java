@@ -7,6 +7,7 @@ import com.ee.firearms.utiles.Recursos;
 import com.ee.firearms.utiles.Render;
 
 public class PantallaCarga implements Screen {
+	
 	Imagen fondo;
 	SpriteBatch b;
 	boolean fadeInTerminado = false, termina = false;
@@ -17,7 +18,7 @@ public class PantallaCarga implements Screen {
 	@Override
 	public void show() {
 		fondo = new Imagen(Recursos.LOGO);
-		b = Render.batch;
+		b = Render.sb;
 		fondo.setTransparencia(1);
 		
 	}
@@ -56,7 +57,6 @@ public class PantallaCarga implements Screen {
 		if (termina) {
 			contTiempoTermina += 0.01f;
 			if (contTiempoTermina > tiempoTermina) {
-//				System.out.println("CAMBIO DE PANTALLA");
 				Render.app.setScreen(new PantallaMenu());
 			}
 		}
@@ -85,6 +85,6 @@ public class PantallaCarga implements Screen {
 
 	@Override
 	public void dispose() {
-		
+		Render.dispose();
 	}
 }

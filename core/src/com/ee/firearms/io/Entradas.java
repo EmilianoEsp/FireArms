@@ -13,10 +13,10 @@ public class Entradas implements InputProcessor {
 	private int mouseX = 0, mouseY = 0;
 	private boolean click = false;
 	
-	PantallaMenu app;
+	PantallaMenu appMenu;
 	
-	public Entradas(PantallaMenu app) {
-		this.app = app;
+	public Entradas(PantallaMenu appMenu) {
+		this.appMenu = appMenu;
 	}
 	
 	PantallaOpciones appOpc;
@@ -28,7 +28,7 @@ public class Entradas implements InputProcessor {
 	@Override
 	public boolean keyDown(int keycode) {
 		
-		app.tiempo = 0.08f;
+		if (appMenu != null) appMenu.tiempo = 0.08f;
 		
 		if(keycode == Keys.DOWN) {
 			abajo = true;

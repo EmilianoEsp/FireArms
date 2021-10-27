@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Player extends Sprite implements InputProcessor {
 
 	private Vector2 velocity = new Vector2();
-	private float speed = 60 * 2, gravity = 60 * 1.8f;
+	private float speed = 30, gravity = 30 * 1.8f;
 	private boolean canJump;
 	private TiledMapTileLayer collisionLayer;
 	
@@ -37,8 +37,8 @@ public class Player extends Sprite implements InputProcessor {
 		}
 		
 		float oldX = getX(), oldY = getY();
-		float tileWidth = collisionLayer.getTileWidth();
-		float tileHeight = collisionLayer.getTileHeight();
+//		float tileWidth = collisionLayer.getTileWidth();
+//		float tileHeight = collisionLayer.getTileHeight();
 		boolean collisionX = false, collisionY = false;
 		
 		setX(getX() + velocity.x * delta);

@@ -6,20 +6,23 @@ import com.ee.firearms.utiles.Render;
 
 public class PantallaUnJugador implements Screen {
 
-	Guerrero g,g2;
+	private Guerrero g2;
+	
 	@Override
 	public void show() {
-		//g = new Guerrero(200,200);
+		
+		//g1 = new Guerrero(200,200);
 		g2 = new Guerrero(400,200); 
 	}
 
 	@Override
 	public void render(float delta) {
 		Render.limpiarPantalla(0, 0, 0, 0);
-		Render.batch.begin();
-		//g.render(Render.batch);
-		g2.render(Render.batch);
-		Render.batch.end();
+		
+		Render.begin();
+		//g1.render(Render.batch);
+		g2.render(Render.sb);
+		Render.end();
 	}
 
 	@Override
@@ -44,7 +47,8 @@ public class PantallaUnJugador implements Screen {
 
 	@Override
 	public void dispose() {
-		Render.batch.dispose();
+		Render.sb.dispose();
+		g2.getTextura().dispose();
 	}
 
 }

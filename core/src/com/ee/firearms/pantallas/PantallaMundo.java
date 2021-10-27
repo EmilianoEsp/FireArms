@@ -67,11 +67,11 @@ public class PantallaMundo implements Screen {
 		update(delta);
 		
 		camera.update();
-		Render.batch.setProjectionMatrix(camera.combined);
+		Render.sb.setProjectionMatrix(camera.combined);
 		
-		Render.batch.begin();
-		fuente.dibujar(Render.batch,"Fps"+Gdx.graphics.getFramesPerSecond(),0,20);
-		Render.batch.end();
+		Render.begin();
+		fuente.dibujar(Render.sb,"Fps"+Gdx.graphics.getFramesPerSecond(),0,20);
+		Render.end();
 		
 		oCamBox2D.update();
 		renderer.render(world, oCamBox2D.combined);
@@ -99,7 +99,9 @@ public class PantallaMundo implements Screen {
 
 	@Override
 	public void dispose() {
-		
+		Render.dispose();
+		world.dispose();
+		renderer.dispose();
 	}
 
 }

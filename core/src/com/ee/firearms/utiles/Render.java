@@ -7,7 +7,7 @@ import com.ee.firearms.FireArms;
 
 public class Render {
 	
-	public static SpriteBatch batch;
+	public static SpriteBatch sb;
 	
 	public static FireArms app;
 	
@@ -15,8 +15,20 @@ public class Render {
 		Gdx.gl.glClearColor(r, g, b, a);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	}
-	public SpriteBatch getSpriteBatch() {
-		return batch;
-
+	
+	public static void begin() {
+		sb.begin();
+	}
+	
+	public static void end() {
+		sb.end();
+	}
+	
+	public static void dispose() {
+		sb.dispose();
+	}
+	
+	public static void salir() {
+		Gdx.app.exit();
 	}
 }

@@ -37,6 +37,7 @@ public class PantallaPrueba implements Screen {
 
 	@Override
 	public void show(){
+		
 		// Camara
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false,800,480);
@@ -128,15 +129,6 @@ public class PantallaPrueba implements Screen {
 	}
 
 	@Override
-	public void dispose(){
-		dropImage.dispose();
-		bucketImage.dispose();
-		dropSound.dispose();
-		rainMusic.dispose();
-		batch.dispose();
-	}
-
-	@Override
 	public void resize(int width, int height) {
 		
 	}
@@ -154,5 +146,14 @@ public class PantallaPrueba implements Screen {
 	@Override
 	public void hide() {
 		
+	}
+	
+	@Override
+	public void dispose(){
+		dropImage.dispose();
+		bucketImage.dispose();
+		dropSound.dispose();
+		rainMusic.dispose();
+		batch.dispose();
 	}
 }

@@ -2,7 +2,7 @@ package com.ee.firearms;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.ee.firearms.pantallas.*;
+import com.ee.firearms.pantallas.PantallaCarga;
 import com.ee.firearms.utiles.Render;
 
 public class FireArms extends Game {
@@ -10,9 +10,9 @@ public class FireArms extends Game {
 	@Override
 	public void create () {
 		Render.app = this;
-		Render.batch = new SpriteBatch();
+		Render.sb = new SpriteBatch();
 		
-		this.setScreen(new PantallaMapa());
+		this.setScreen(new PantallaCarga());
 	}
 
 	@Override
@@ -22,6 +22,6 @@ public class FireArms extends Game {
 
 	@Override
 	public void dispose () {
-		Render.batch.dispose();
+		Render.sb.dispose();
 	}
 }

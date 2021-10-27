@@ -31,6 +31,7 @@ public class PantallaMapa implements Screen {
 		
 		camera = new OrthographicCamera();
 		//camera.setToOrtho(false,500,240);
+		
 		camera.setToOrtho(false, Config.ANCHO, Config.ALTO);
 		
 		player = new Player(new Sprite(new Texture("personajes/SpriteIdle.png")), (TiledMapTileLayer) map.getLayers().get(0));
@@ -38,7 +39,6 @@ public class PantallaMapa implements Screen {
 		// Posición del jugador
 		//player.setPosition(14 * player.getCollisionLayer().getTileWidth(), (player.getCollisionLayer().getTileHeight() - 16) * player.getCollisionLayer().getTileHeight());
 	
-		// Para que el jugador se pueda mover
 		Gdx.input.setInputProcessor(player);
 	}
 
@@ -46,14 +46,11 @@ public class PantallaMapa implements Screen {
 	public void render(float delta) {
 		Render.limpiarPantalla(0, 0, 0, 0);
 		
-		Render.batch.setProjectionMatrix(camera.combined);
+		Render.sb.setProjectionMatrix(camera.combined);
 		
-		// Posición cámara - jugador
 		//camera.position.set(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2, 0);
 		
 		camera.update();
-		
-		
 		
 		renderer.setView(camera);
 		
