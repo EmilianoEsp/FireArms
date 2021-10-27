@@ -9,6 +9,7 @@ public class Recursos {
 	public static final String FUENTEMENU = "fuentes/rocky-rockin.ttf";
 	public static final String GUERRERO_RUN = "personajes/guerrero_run.png";
 	public static final String GUERRERO_ATAQUE = "personajes/Attack2.png";
+	public static final String GUERRERO_IDLE = "personajes/guerrero_idle.png";
 	
 	// Sonidos
 	

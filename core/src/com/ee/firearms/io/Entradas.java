@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.ee.firearms.pantallas.PantallaMenu;
 import com.ee.firearms.pantallas.PantallaOpciones;
+import com.ee.firearms.pantallas.PantallaUnJugador;
 import com.ee.firearms.utiles.Config;
 
 public class Entradas implements InputProcessor {
@@ -12,6 +13,8 @@ public class Entradas implements InputProcessor {
 	private boolean enter = false;
 	private int mouseX = 0, mouseY = 0;
 	private boolean click = false;
+	private boolean izquierda = false, derecha = false;
+	private boolean saltar = false;
 	
 	PantallaMenu appMenu;
 	
@@ -25,6 +28,12 @@ public class Entradas implements InputProcessor {
 		this.appOpc = appOpc;
 	}
 	
+	PantallaUnJugador appUJ;
+	
+	public Entradas(PantallaUnJugador appUJ) {
+		this.appUJ = appUJ;
+	}
+	
 	@Override
 	public boolean keyDown(int keycode) {
 		
@@ -34,6 +43,14 @@ public class Entradas implements InputProcessor {
 			abajo = true;
 		} else if(keycode == Keys.UP) {
 			arriba = true;
+		}
+		
+		if(keycode == Keys.A) {
+			izquierda = true;
+		} else if(keycode == Keys.D) {
+			derecha = true;
+		} else if(keycode == Keys.W) {
+			saltar = true;
 		}
 		
 		if(keycode == Keys.ENTER) {
@@ -57,7 +74,31 @@ public class Entradas implements InputProcessor {
 			enter = false;
 		}
 		
+		if(keycode == Keys.A) {
+			izquierda = false;
+		}
+		
+		if(keycode == Keys.D) {
+			derecha = false;
+		}
+		
+		if(keycode == Keys.W) {
+			saltar = false;
+		}
+		
 		return false;
+	}
+
+	public boolean isIzquierda() {
+		return izquierda;
+	}
+
+	public boolean isDerecha() {
+		return derecha;
+	}
+
+	public boolean isSaltar() {
+		return saltar;
 	}
 
 	@Override

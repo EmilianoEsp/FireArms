@@ -1,8 +1,10 @@
 package com.ee.firearms.elementos;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public class Mago extends Personaje {
 
 	public Mago() {
-		super("Mago", new Imagen("personajes/Pj_Mago.png"), 100, 100);
+		super("Mago", new Texture("personajes/Pj_Mago.png"), 100, 100);
 	}
 }
