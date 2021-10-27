@@ -15,9 +15,9 @@ public class Animacion {
 	
 	private TextureRegion frameActual;
 	
-	public Animacion(Personaje p, int cantFrames) {
+	public Animacion(Personaje p, Texture texturaAnim, int cantFrames) {
 		// Cargar la textura
-		textura = p.getTextura();
+		textura = texturaAnim;
 		TextureRegion [][] tmp = TextureRegion.split(textura,textura.getWidth()/cantFrames,textura.getHeight());
 		
 		regionsMovimientos = new TextureRegion[cantFrames];

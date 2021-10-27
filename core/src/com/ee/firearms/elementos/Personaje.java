@@ -7,7 +7,6 @@ public abstract class Personaje {
 	private int nivel = 1, experiencia = 0;
 	private float posX, posY;
 	private String nombre;
-	private int vel = 10;
 	private Texture textura;
 	
 	public Personaje(String nombre, Texture textura, float posX, float posY) {
@@ -17,34 +16,34 @@ public abstract class Personaje {
 		this.posY = posY;
 	}
 	
-	public void moverIzquierda() {
-		System.out.println("Se movio a la izquierda");
-		
-		float posX = this.getPosX() - vel;
-		this.setPosX(posX);
-	}
-	
-	public void moverDerecha() {
-		System.out.println("Se movio a la derecha");
-		
-		float posX = this.getPosX() + vel;
-		this.setPosX(posX);
-	}
-	
-	public void saltar() {
-		System.out.println("Ha realizado un salto");
-		
-		float posY = this.getPosY() + vel;
-		
-		if(posY > this.getTextura().getHeight() + 5) {
-			posY = this.getPosY() - vel;
-		}
-		
-		if(posY == this.getTextura().getHeight()) {
-			posY = 0;
-		}
-		this.setPosY(posY);
-	}
+//	public void moverIzquierda() {
+//		System.out.println("Se movio a la izquierda");
+//		
+//		float posX = this.getPosX() - vel;
+//		this.setPosX(posX);
+//	}
+//	
+//	public void moverDerecha() {
+//		System.out.println("Se movio a la derecha");
+//		
+//		float posX = this.getPosX() + vel;
+//		this.setPosX(posX);
+//	}
+//	
+//	public void saltar() {
+//		System.out.println("Ha realizado un salto");
+//		
+//		float posY = this.getPosY() + vel;
+//		
+//		if(posY > this.getTextura().getHeight() + 5) {
+//			posY = this.getPosY() - vel;
+//		}
+//		
+//		if(posY == this.getTextura().getHeight()) {
+//			posY = 0;
+//		}
+//		this.setPosY(posY);
+//	}
 
 	public void setPosX(float posX) {
 		this.posX = posX;

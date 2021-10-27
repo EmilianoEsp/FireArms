@@ -38,6 +38,7 @@ public class Entradas implements InputProcessor {
 	public boolean keyDown(int keycode) {
 		
 		if (appMenu != null) appMenu.tiempo = 0.08f;
+		if ( appOpc != null) appOpc.tiempo = 0.08f;
 		
 		if(keycode == Keys.DOWN) {
 			abajo = true;

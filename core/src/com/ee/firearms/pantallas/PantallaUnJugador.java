@@ -2,7 +2,6 @@ package com.ee.firearms.pantallas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.ee.firearms.elementos.Animacion;
 import com.ee.firearms.elementos.Guerrero;
 import com.ee.firearms.io.Entradas;
 import com.ee.firearms.utiles.Render;
@@ -10,14 +9,12 @@ import com.ee.firearms.utiles.Render;
 public class PantallaUnJugador implements Screen {
 
 	private Guerrero g1;
-	private Animacion anim;
 	
 	Entradas entradas = new Entradas(this);
 	
 	@Override
 	public void show() {
 		g1 = new Guerrero(); 
-		anim = new Animacion(g1,4);
 		
 		Gdx.input.setInputProcessor(entradas);
 	}
@@ -26,10 +23,8 @@ public class PantallaUnJugador implements Screen {
 	public void render(float delta) {
 		Render.limpiarPantalla(0, 0, 0, 0);
 		
-		update();
-		
 		Render.begin();
-		anim.render(Render.sb, (int) g1.getPosX(), (int) g1.getPosY());
+		update();
 		Render.end();
 	}
 
@@ -43,9 +38,9 @@ public class PantallaUnJugador implements Screen {
 			g1.moverDerecha();
 		} 
 		
-		if(entradas.isSaltar()) {
-			g1.saltar();
-		}
+//		if(entradas.isSaltar()) {
+//			g1.saltar();
+//		}
 		
 	}
 
