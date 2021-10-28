@@ -7,9 +7,10 @@ public class Recursos {
 	public static final String FONDOMENU_1 = "fondos/fondo_1.png";
 	public static final String FONDOMENU_2 = "fondos/fondo_2.jpg";
 	public static final String FUENTEMENU = "fuentes/rocky-rockin.ttf";
-	public static final String GUERRERO_CAMINAR_DERECHA = "personajes/guerrero_caminar_derecha.png";
-	public static final String GUERRERO_CAMINAR_IZQUIERDA = "personajes/guerrero_caminar_izquierda.png";
-	public static final String GUERRERO = "personajes/guerrero_idle.png";
+	public static final String GUERRERO_CAMINAR_DERECHA = "personajes/guerrero/guerrero_caminar_derecha.png";
+	public static final String GUERRERO_CAMINAR_IZQUIERDA = "personajes/guerrero/guerrero_caminar_izquierda.png";
+	public static final String GUERRERO_DER = "personajes/guerrero/guerrero_der.png";
+	public static final String GUERRERO_IZQ = "personajes/guerrero/guerrero_izq.png";
 	
 	// Sonidos
 	

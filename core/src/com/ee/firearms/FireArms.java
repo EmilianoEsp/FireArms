@@ -2,7 +2,7 @@ package com.ee.firearms;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.ee.firearms.pantallas.PantallaCarga;
+import com.ee.firearms.pantallas.PantallaUnJugador;
 import com.ee.firearms.utiles.Render;
 
 public class FireArms extends Game {
@@ -12,7 +12,7 @@ public class FireArms extends Game {
 		Render.app = this;
 		Render.sb = new SpriteBatch();
 		
-		this.setScreen(new PantallaCarga());
+		this.setScreen(new PantallaUnJugador());
 	}
 
 	@Override
