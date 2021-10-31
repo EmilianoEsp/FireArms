@@ -19,4 +19,8 @@ public class Recursos {
 	
 	// Tiles
 	public static final String SHEET = "sheet1";
+	
+	public static final int TILE_WIDTH = 32;
+	public static final int TILES_IN_CAMERA_WIDTH = 16;
+	public static final int TILES_IN_CAMERA_HEIGHT = 8;
 }

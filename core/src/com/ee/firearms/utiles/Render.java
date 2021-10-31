@@ -2,6 +2,7 @@ package com.ee.firearms.utiles;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ee.firearms.FireArms;
 
@@ -15,6 +16,8 @@ public class Render {
 		Gdx.gl.glClearColor(r, g, b, a);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	}
+	
+	public static Batch b;
 	
 	public static void begin() {
 		sb.begin();
