@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="64" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="29">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="64" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="48">
  <tileset firstgid="1" source="Tileset-v2.tsx"/>
  <layer id="1" name="background" width="64" height="20">
   <data encoding="csv">
@@ -41,7 +41,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,119,120,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,119,120,0,0,0,0,0,0,0,0,117,118,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,96,110,97,0,0,0,0,119,120,0,0,0,0,0,96,110,110,110,110,97,0,0,0,0,0,0,0,0,0,0,0,0,0,0,119,120,0,0,0,0,0,0,0,0,117,118,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,137,138,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,137,138,0,0,0,0,0,0,0,0,135,136,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,155,156,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,155,156,0,0,0,0,0,0,0,0,153,154,0,0,0,0,
 0,0,0,0,0,0,0,0,98,0,0,0,99,0,0,0,81,0,0,0,0,173,174,0,0,0,81,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,82,0,173,174,0,0,0,115,0,82,0,0,171,172,0,0,0,0,
@@ -58,6 +58,34 @@
   </object>
   <object id="28" x="2046.67" y="576">
    <polyline points="0,0 1,-574.5"/>
+  </object>
+ </objectgroup>
+ <objectgroup id="5" name="bricks">
+  <object id="32" x="256" y="553" width="31" height="24"/>
+  <object id="33" x="384" y="555" width="31" height="21"/>
+  <object id="34" x="512" y="555" width="31" height="21"/>
+  <object id="36" x="832" y="558" width="31" height="18"/>
+  <object id="37" x="1472" y="563" width="31" height="13"/>
+  <object id="38" x="1760" y="566" width="32" height="11"/>
+  <object id="39" x="448" y="449" width="32" height="30"/>
+  <object id="40" x="512" y="449" width="31" height="30"/>
+  <object id="41" x="480" y="449" width="31" height="30"/>
+  <object id="42" x="896" y="448" width="32" height="31"/>
+  <object id="43" x="959" y="448" width="32" height="31"/>
+  <object id="44" x="1023" y="449" width="34" height="29"/>
+  <object id="45" x="1058" y="449" width="30" height="30"/>
+  <object id="46" x="990" y="448" width="33" height="31"/>
+  <object id="47" x="928" y="449" width="31" height="30"/>
+ </objectgroup>
+ <objectgroup id="6" name="coins">
+  <object id="29" x="256" y="290" width="30" height="26">
+   <ellipse/>
+  </object>
+  <object id="30" x="448" y="288" width="30" height="32">
+   <ellipse/>
+  </object>
+  <object id="31" x="640" y="288" width="32" height="30">
+   <ellipse/>
   </object>
  </objectgroup>
 </map>

@@ -23,4 +23,10 @@ public class Recursos {
 	public static final int TILE_WIDTH = 32;
 	public static final int TILES_IN_CAMERA_WIDTH = 16;
 	public static final int TILES_IN_CAMERA_HEIGHT = 8;
+	
+	public static final int V_WIDTH = 400;
+	public static final int V_HEIGHT = 208;
+	public static final float PPM = 100;
+	
+	public static final String ATLAS_1 = "atlas_1.pack";
 }
