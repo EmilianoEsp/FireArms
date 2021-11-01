@@ -3,6 +3,7 @@ package com.ee.firearms.test2;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -13,7 +14,9 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.ee.firearms.FireArms;
 import com.ee.firearms.scenes.Hud;
+import com.ee.firearms.sprites.Knight;
 import com.ee.firearms.sprites.Player;
 import com.ee.firearms.tools.B2WorldCreator;
 import com.ee.firearms.tools.WorldContactListener;
@@ -37,6 +40,9 @@ public class PlayScreen implements Screen {
 	private Box2DDebugRenderer b2dr;
 	
 	private Player player;
+	private Knight knight;	
+	
+	private Music music;
 	
 	@Override
 	public void show() {
@@ -55,11 +61,17 @@ public class PlayScreen implements Screen {
 		world = new World(new Vector2(0, -10), true);
 		b2dr = new Box2DDebugRenderer();
 		
-		new B2WorldCreator(world, map);
+		new B2WorldCreator(this);
 		
-		player = new Player(world, this);
+		player = new Player(this);
 		
 		world.setContactListener(new WorldContactListener());
+		
+		music = FireArms.manager.get("musica/music_1.wav", Music.class);
+		music.setLooping(true);
+		music.play();
+		
+		knight = new Knight(this, .32f, .32f);
 	}
 
 	@Override
@@ -75,6 +87,7 @@ public class PlayScreen implements Screen {
 		Render.b.setProjectionMatrix(gameCam.combined);
 		Render.b.begin();
 		player.draw(Render.b);
+		knight.draw(Render.b);
 		Render.b.end();
 		
 		Render.sb.setProjectionMatrix(hud.stage.getCamera().combined);
@@ -87,6 +100,8 @@ public class PlayScreen implements Screen {
 		world.step(1/60f, 6, 2);
 		
 		player.update(dt);
+		knight.update(dt);
+		hud.update(dt);
 		
 		gameCam.position.x = player.b2Body.getPosition().x;
 		
@@ -137,6 +152,14 @@ public class PlayScreen implements Screen {
 	
 	public TextureAtlas getAtlas() {
 		return atlas;
+	}
+	
+	public TiledMap getMap() {
+		return map;
+	}
+	
+	public World getWorld() {
+		return world;
 	}
 
 }

@@ -1,19 +1,28 @@
 package com.ee.firearms.sprites;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.World;
+import com.ee.firearms.FireArms;
+import com.ee.firearms.scenes.Hud;
+import com.ee.firearms.test2.PlayScreen;
+import com.ee.firearms.utiles.Recursos;
 
 public class Brick extends InteractiveTileObject {
 
-	public Brick(World world, TiledMap map, Rectangle bounds) {
-		super(world, map, bounds);
+	public Brick(PlayScreen screen, Rectangle bounds) {
+		super(screen, bounds);
 		fixture.setUserData(this);
+		setCategoryFilter(Recursos.BRICK_BIT);
 	}
 
 	@Override
 	public void onHeadHit() {
 		Gdx.app.log("Brick", "Collision");
+		setCategoryFilter(Recursos.DETROYED_BIT);
+		getCell().setTile(null);
+		Hud.addScore(200);
+		
+		FireArms.manager.get("sonidos/break.wav", Sound.class).play();
 	}
 }

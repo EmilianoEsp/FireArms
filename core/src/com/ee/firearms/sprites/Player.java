@@ -25,9 +25,9 @@ public class Player extends Sprite {
 	private float stateTimer;
 	private boolean runningRight;
 	
-	public Player(World world, PlayScreen screen) {
+	public Player(PlayScreen screen) {
 		super(screen.getAtlas().findRegion("guerrero"));
-		this.world = world;
+		this.world = screen.getWorld();
 		currentState = State.STANDING;
 		previousState = State.STANDING;
 		stateTimer = 0;
@@ -61,6 +61,12 @@ public class Player extends Sprite {
 		FixtureDef fDef = new FixtureDef();
 		CircleShape shape = new CircleShape();
 		shape.setRadius(6 / Recursos.PPM);
+		fDef.filter.categoryBits = Recursos.PLAYER_BIT;
+		fDef.filter.maskBits = Recursos.GROUND_BIT | 
+							   Recursos.COIN_BIT | 
+							   Recursos.BRICK_BIT |
+							   Recursos.ENEMY_BIT |
+							   Recursos.OBJECT_BIT;
 		
 		fDef.shape = shape;
 		b2Body.createFixture(fDef);
