@@ -5,11 +5,10 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.ee.firearms.pantallas.PantallaUnJugador;
+import com.ee.firearms.test2.PlayScreen;
 import com.ee.firearms.utiles.Render;
 
 public class FireArms extends Game {
-	
 	public static AssetManager manager;
 	
 	@Override
@@ -24,7 +23,7 @@ public class FireArms extends Game {
 		manager.load("sonidos/break.wav", Sound.class);
 		manager.finishLoading();
 		
-		this.setScreen(new PantallaUnJugador());
+		this.setScreen(new PlayScreen());
 	}
 
 	@Override

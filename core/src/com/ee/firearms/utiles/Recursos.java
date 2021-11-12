@@ -36,5 +36,5 @@ public class Recursos {
 	public static final short OBJECT_BIT = 32;
 	public static final short ENEMY_BIT = 64;
 	
-	public static final String ATLAS_1 = "atlas_1.pack";
+	public static final String ATLAS_1 = "atlas_1.png";
 }

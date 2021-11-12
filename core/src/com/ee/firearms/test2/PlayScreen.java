@@ -16,7 +16,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.ee.firearms.FireArms;
 import com.ee.firearms.scenes.Hud;
-import com.ee.firearms.sprites.Knight;
 import com.ee.firearms.sprites.Player;
 import com.ee.firearms.tools.B2WorldCreator;
 import com.ee.firearms.tools.WorldContactListener;
@@ -24,9 +23,8 @@ import com.ee.firearms.utiles.Recursos;
 import com.ee.firearms.utiles.Render;
 
 public class PlayScreen implements Screen {
-
-	private TextureAtlas atlas;
 	
+	private TextureAtlas atlas;
 	private OrthographicCamera gameCam;
 	private Viewport gamePort;
 	private Hud hud;
@@ -38,15 +36,16 @@ public class PlayScreen implements Screen {
 	// Box2d variables
 	private World world;
 	private Box2DDebugRenderer b2dr;
+	private B2WorldCreator b2wc;
 	
 	private Player player;
-	private Knight knight;	
 	
 	private Music music;
 	
 	@Override
 	public void show() {
-		atlas = new TextureAtlas(Recursos.ATLAS_1);
+//		atlas = new TextureAtlas("Mario_and_Enemies.pack");
+		atlas = new TextureAtlas("MarioAtlas.atlas");
 		
 		gameCam = new OrthographicCamera();
 		gamePort = new FitViewport(Recursos.V_WIDTH / Recursos.PPM, Recursos.V_HEIGHT / Recursos.PPM, gameCam);
@@ -61,7 +60,7 @@ public class PlayScreen implements Screen {
 		world = new World(new Vector2(0, -10), true);
 		b2dr = new Box2DDebugRenderer();
 		
-		new B2WorldCreator(this);
+		b2wc = new B2WorldCreator(this);
 		
 		player = new Player(this);
 		
@@ -70,28 +69,31 @@ public class PlayScreen implements Screen {
 		music = FireArms.manager.get("musica/music_1.wav", Music.class);
 		music.setLooping(true);
 		music.play();
-		
-		knight = new Knight(this, .32f, .32f);
 	}
 
 	@Override
 	public void render(float delta) {
+		
 		update(delta);
 		
 		Render.limpiarPantalla(0, 0, 0, 1);
+		
+//		Render.b.setProjectionMatrix(hud.stage.getCamera().combined);
+		
 		
 		renderer.render();
 		
 		b2dr.render(world, gameCam.combined);
 		
-		Render.b.setProjectionMatrix(gameCam.combined);
-		Render.b.begin();
-		player.draw(Render.b);
-		knight.draw(Render.b);
-		Render.b.end();
+		Render.sb.setProjectionMatrix(gameCam.combined);
 		
-		Render.sb.setProjectionMatrix(hud.stage.getCamera().combined);
-		hud.stage.draw();
+		Render.sb.begin();
+		player.draw(Render.sb);
+		Render.sb.end();
+		
+		
+		//Render.sb.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
 	}
 	
 	private void update(float dt) {
@@ -100,7 +102,6 @@ public class PlayScreen implements Screen {
 		world.step(1/60f, 6, 2);
 		
 		player.update(dt);
-		knight.update(dt);
 		hud.update(dt);
 		
 		gameCam.position.x = player.b2Body.getPosition().x;
@@ -150,16 +151,16 @@ public class PlayScreen implements Screen {
 		hud.dispose();
 	}
 	
-	public TextureAtlas getAtlas() {
-		return atlas;
-	}
-	
 	public TiledMap getMap() {
 		return map;
 	}
 	
 	public World getWorld() {
 		return world;
+	}
+
+	public TextureAtlas getAtlas() {
+		return atlas;
 	}
 
 }
