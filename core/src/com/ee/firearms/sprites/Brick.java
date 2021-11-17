@@ -3,9 +3,9 @@ package com.ee.firearms.sprites;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Rectangle;
-import com.ee.firearms.FireArms;
 import com.ee.firearms.scenes.Hud;
 import com.ee.firearms.test2.PlayScreen;
+import com.ee.firearms.utiles.GameAssetManager;
 import com.ee.firearms.utiles.Recursos;
 
 public class Brick extends InteractiveTileObject {
@@ -23,6 +23,6 @@ public class Brick extends InteractiveTileObject {
 		getCell().setTile(null);
 		Hud.addScore(200);
 		
-		FireArms.manager.get("sonidos/break.wav", Sound.class).play();
+		GameAssetManager.manager.get("sonidos/break.wav", Sound.class).play();
 	}
 }

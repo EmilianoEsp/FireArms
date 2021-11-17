@@ -1,23 +1,28 @@
 package com.ee.firearms.pantallas;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ee.firearms.elementos.Imagen;
+import com.ee.firearms.utiles.Config;
 import com.ee.firearms.utiles.Recursos;
 import com.ee.firearms.utiles.Render;
 
 public class PantallaCarga implements Screen {
 	
-	Imagen fondo;
-	SpriteBatch b;
-	boolean fadeInTerminado = false, termina = false;
-	float a = 0;
-	float contTiempo = 0, tiempoEspera = 5;
-	float contTiempoTermina = 0, tiempoTermina = 5;
+	private Imagen fondo;
+	private SpriteBatch b;
+	private boolean fadeInTerminado = false, termina = false;
+	private float a = 0;
+	private float contTiempo = 0, tiempoEspera = 5;
+	private float contTiempoTermina = 0, tiempoTermina = 5;
+	
+	public Music musicMenu;
 	
 	@Override
 	public void show() {
 		fondo = new Imagen(Recursos.LOGO);
+		fondo.setSize(Config.ANCHO, Config.ALTO);
 		b = Render.sb;
 		fondo.setTransparencia(1);
 		
@@ -55,7 +60,7 @@ public class PantallaCarga implements Screen {
 		fondo.setTransparencia(a);
 		
 		if (termina) {
-			contTiempoTermina += 0.01f;
+			contTiempoTermina += 0.08f;
 			if (contTiempoTermina > tiempoTermina) {
 				Render.app.setScreen(new PantallaMenu());
 			}

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.ee.firearms.pantallas.PantallaMenu;
 import com.ee.firearms.pantallas.PantallaOpciones;
+import com.ee.firearms.pantallas.PantallaPausa;
 import com.ee.firearms.pantallas.PantallaUnJugador;
 import com.ee.firearms.utiles.Config;
 
@@ -34,11 +35,18 @@ public class Entradas implements InputProcessor {
 		this.appUJ = appUJ;
 	}
 	
+	PantallaPausa appPa;
+	
+	public Entradas(PantallaPausa appPa) {
+		this.appPa = appPa;
+	}
+	
 	@Override
 	public boolean keyDown(int keycode) {
 		
 		if (appMenu != null) appMenu.tiempo = 0.08f;
 		if ( appOpc != null) appOpc.tiempo = 0.08f;
+		if (appPa != null) appPa.tiempo = 0.08f;
 		
 		if(keycode == Keys.DOWN) {
 			abajo = true;

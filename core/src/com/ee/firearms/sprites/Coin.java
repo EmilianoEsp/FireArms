@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.math.Rectangle;
-import com.ee.firearms.FireArms;
 import com.ee.firearms.scenes.Hud;
 import com.ee.firearms.test2.PlayScreen;
+import com.ee.firearms.utiles.GameAssetManager;
 import com.ee.firearms.utiles.Recursos;
 
 public class Coin extends InteractiveTileObject {
@@ -26,9 +26,9 @@ public class Coin extends InteractiveTileObject {
 		Gdx.app.log("Coin", "Collision");
 		
 		if(getCell().getTile().getId() == BLANK_COIN) {
-			FireArms.manager.get("sonidos/bump.wav", Sound.class);
+			GameAssetManager.manager.get("sonidos/bump.wav", Sound.class);
 		} else {
-			FireArms.manager.get("sonidos/coin.wav", Sound.class);
+			GameAssetManager.manager.get("sonidos/coin.wav", Sound.class);
 		}
 		
 		getCell().setTile(tileSet.getTile(BLANK_COIN));

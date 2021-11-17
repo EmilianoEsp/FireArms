@@ -69,7 +69,7 @@ public class Player extends Sprite {
 	private boolean runningRight;
 	
 	public Player(PlayScreen screen) {
-		super(screen.getAtlas().findRegion("Mario_Atlas"));
+		super(screen.getAtlas().findRegion("big_mario"));
 		this.world = screen.getWorld();
 		currentState = State.STANDING;
 		previousState = State.STANDING;
@@ -78,17 +78,17 @@ public class Player extends Sprite {
 		
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 		for(int i = 1; i < 4; i++) {
-			frames.add(new TextureRegion(getTexture(), i * 16, 0, 16, 16));
+			frames.add(new TextureRegion(getTexture(), 1 * i, 11, 16, 16));
 		}
 		playerRun = new Animation<TextureRegion>(0.1f, frames);
 		frames.clear();
 		
 		for(int i = 4; i < 6; i++) {
-			frames.add(new TextureRegion(getTexture(), i * 16, 0, 16, 16));
+			frames.add(new TextureRegion(getTexture(), 1 * i, 11, 16, 16));
 		}
 		playerJump = new Animation<TextureRegion>(0.1f, frames);
 		
-		playerStand = new TextureRegion(getTexture(), 0, 0, 16, 16);
+		playerStand = new TextureRegion(getTexture(), 1, 29, 16, 16);
 		
 		definePlayer();
 		setBounds(0, 0, 16 / Recursos.PPM, 16 / Recursos.PPM);

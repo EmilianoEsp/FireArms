@@ -14,15 +14,18 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.ee.firearms.FireArms;
+import com.ee.firearms.pantallas.PantallaPausa;
 import com.ee.firearms.scenes.Hud;
 import com.ee.firearms.sprites.Player;
 import com.ee.firearms.tools.B2WorldCreator;
 import com.ee.firearms.tools.WorldContactListener;
+import com.ee.firearms.utiles.GameAssetManager;
 import com.ee.firearms.utiles.Recursos;
 import com.ee.firearms.utiles.Render;
 
 public class PlayScreen implements Screen {
+	
+//    public PlayScreen game = this;
 	
 	private TextureAtlas atlas;
 	private OrthographicCamera gameCam;
@@ -44,8 +47,8 @@ public class PlayScreen implements Screen {
 	
 	@Override
 	public void show() {
-//		atlas = new TextureAtlas("Mario_and_Enemies.pack");
-		atlas = new TextureAtlas("MarioAtlas.atlas");
+		atlas = new TextureAtlas("Mario_and_Enemies.pack");
+//		atlas = new TextureAtlas("MarioAtlas.atlas");
 		
 		gameCam = new OrthographicCamera();
 		gamePort = new FitViewport(Recursos.V_WIDTH / Recursos.PPM, Recursos.V_HEIGHT / Recursos.PPM, gameCam);
@@ -66,8 +69,9 @@ public class PlayScreen implements Screen {
 		
 		world.setContactListener(new WorldContactListener());
 		
-		music = FireArms.manager.get("musica/music_1.wav", Music.class);
+		music = GameAssetManager.manager.get(Recursos.MUSICAJUEGO, Music.class);
 		music.setLooping(true);
+		music.setVolume(0.5f);
 		music.play();
 	}
 
@@ -120,6 +124,11 @@ public class PlayScreen implements Screen {
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && (player.b2Body.getLinearVelocity().x >= -2) ) {
 			player.b2Body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2Body.getWorldCenter(), true);
 		}
+		
+		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+			music.stop();
+			Render.app.setScreen(new PantallaPausa()); // No funciona
+		}
 	}
 
 	@Override
@@ -162,5 +171,4 @@ public class PlayScreen implements Screen {
 	public TextureAtlas getAtlas() {
 		return atlas;
 	}
-
 }
