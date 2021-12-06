@@ -31,6 +31,7 @@ public class Texto {
 			parametros.shadowColor = Color.BLACK;
 			parametros.shadowOffsetX = 1;
 			parametros.shadowOffsetY = 1;
+			parametros.borderWidth = 5;
 		}
 
 		fuente = generador.generateFont(parametros);

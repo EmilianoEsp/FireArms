@@ -2,169 +2,110 @@ package com.ee.firearms.pantallas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.ee.firearms.elementos.Imagen;
-import com.ee.firearms.elementos.Texto;
-import com.ee.firearms.io.Entradas;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.ee.firearms.FireArms;
 import com.ee.firearms.test2.PlayScreen;
+import com.ee.firearms.utiles.Assets;
 import com.ee.firearms.utiles.Config;
-import com.ee.firearms.utiles.GameAssetManager;
-import com.ee.firearms.utiles.Recursos;
-import com.ee.firearms.utiles.Render;
 
-public class PantallaMenu implements Screen {
-		
-	private Imagen fondo;
-	private SpriteBatch b;
+public class PantallaMenu extends Menu implements Screen {
 	
-	private Texto opciones[] = new Texto[4];
-	private String textos[] = {
-						"Un jugador",
-						"Multijugador",
-						"Opciones",
-						"Salir"
-					  };
+	private FireArms game;
+	private Image fondo, titulo;
+	private TextButton unJugador, opciones, multijugador, salir;
 	
-	private Texto titulo;
-	
-	private int opc = 1;
-	
-	private boolean mouseArriba = false;
-	
-	public float tiempo = 0;
-	
-	public GameAssetManager manager = new GameAssetManager();
-	private Music musicaMenu;
-	
-	//private ShapeRenderer sr;
-	
-	private Entradas entradas = new Entradas(this);
-	
-	@Override
-	public void show() {
-		fondo = new Imagen(Recursos.FONDOMENU_1);
+
+	public PantallaMenu(FireArms game) {
+		this.game = game;
+		crearWidgets();
+		configurarWidgets();
+		establecerListeners();
+		Gdx.input.setInputProcessor(stage);
+	}
+
+	private void establecerListeners() {
+		unJugador.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				game.setScreen(new PlayScreen(game));
+				game.repMusica.pausada = true;
+				game.repMusica.musica[game.repMusica.getMusicaActual()].stop();
+			}
+		});
+		multijugador.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				game.setScreen(new PantallaMultijugador(game));
+			}
+		});
+		opciones.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				game.setScreen(new PantallaOpciones(game));
+			}
+		});
+		salir.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.app.exit();
+			}
+		});
+	}
+
+	private void configurarWidgets() {
 		fondo.setSize(Config.ANCHO, Config.ALTO);
-		
-		musicaMenu = manager.getManager().get(Recursos.MUSICAMENU, Music.class);
-		musicaMenu.setLooping(true);
-		musicaMenu.play();
-		
-		b = Render.sb;
-		//sr = new ShapeRenderer();
+		titulo.setPosition(Config.ANCHO / 2 - titulo.getWidth() / 2, Config.ALTO - titulo.getHeight() * 1.20f );
+		unJugador.setSize(300, 90);
+		unJugador.setPosition(Config.ANCHO / 2 - unJugador.getWidth() / 2, Config.ALTO / 2 - 0);
+		multijugador.setSize(300, 90);
+		multijugador.setPosition(Config.ANCHO / 2 - unJugador.getWidth() / 2, Config.ALTO / 2 - 70);
+		opciones.setSize(300, 90);
+		opciones.setPosition(Config.ANCHO / 2 - unJugador.getWidth() / 2, Config.ALTO / 2 - 140);
+		salir.setSize(300, 90);
+		salir.setPosition(Config.ANCHO / 2 - unJugador.getWidth() / 2, Config.ALTO / 2 - 210);
+		stage.addActor(fondo);
+		stage.addActor(titulo);
+		stage.addActor(unJugador);
+		stage.addActor(multijugador);
+		stage.addActor(opciones);
+		stage.addActor(salir);
 
-		Gdx.input.setInputProcessor(entradas);
+	}
 
-		int avance = 30;
-		
-		titulo = new Texto(Recursos.FUENTE_3, 90, Color.WHITE, true);
-		titulo.setTexto("FireArms");
-		titulo.setPosition(Config.ANCHO/2 - titulo.getAncho()/2, Config.ALTO - titulo.getAlto()*2);
-		
-		//test = new Texto(Recursos.FUENTE_3, 30, Color.WHITE, true);
-		//test.setY(100);
-		
-		for (int i = 0; i < opciones.length; i++) {
-			opciones[i] = new Texto(Recursos.FUENTE_3, 60, Color.WHITE, true);
-			opciones[i].setTexto(textos[i]);
-			opciones[i].setPosition((Config.ANCHO / 2) - (opciones[i].getAncho() / 2),
-					((Config.ALTO / 2) + (opciones[0].getAlto() / 2)) - ((opciones[i].getAlto() * i) + (avance * i)));
-		}
-		
+	private void crearWidgets() {
+		fondo = new Image(new Texture(Gdx.files.internal("fondos/fondo_1.png")));
+		titulo = new Image(new Texture(Gdx.files.internal("fondos/tituloMenu.png")));
+		unJugador = new TextButton("Un jugador", Assets.skin);
+		multijugador = new TextButton("Multijugador", Assets.skin);
+		opciones = new TextButton("Opciones", Assets.skin);
+		salir = new TextButton("Salir", Assets.skin);
 	}
 
 	@Override
 	public void render(float delta) {
-		Render.limpiarPantalla(0, 0, 0, 0);
-		
-		b.begin();
-		fondo.dibujar();
+		stage.act(delta);
+		stage.draw();
+	}
 	
-		for (int i = 0; i < opciones.length; i++) {
-			opciones[i].dibujar();
-		}
-		
-		//test.setTexto("Coord x: " + entradas.getMouseX() + " Coord y:" + entradas.getMouseY());
-		//test.dibujar();
-		
-		titulo.dibujar();
-		
-		//sr.begin(ShapeType.Line);
-		//sr.setColor(Color.RED);
-		//for (int i = 0; i < opciones.length; i++) {
-			//sr.rect(opciones[i].getX(), opciones[i].getY() - opciones[i].getAlto(), opciones[i].getAncho(), opciones[i].getAlto());
-			//opciones[i].dibujar();
-		//}
-		//sr.end();
-		
-		b.end();
-		
-		tiempo += delta;
-
-		if (entradas.isAbajo()) {
-			if (tiempo > 0.1f) {
-				tiempo = 0;
-				opc++;
-				if (opc > 4) {
-					opc = 1;
-				}
-			}
-		}
-
-		if (entradas.isArriba()) {
-			if (tiempo > 0.1f) {
-				tiempo = 0;
-				opc--;
-				if (opc < 1) {
-					opc = 4;
-				}
-			}
-		}
-		
-		int cont = 0;
-		for (int i = 0; i < opciones.length; i++) {
-			if( (entradas.getMouseX() >= opciones[i].getX()) && (entradas.getMouseX() <= (opciones[i].getX() + opciones[i].getAncho())) ) {
-				if( (entradas.getMouseY() >= opciones[i].getY() - opciones[i].getAlto()) && (entradas.getMouseY() <= (opciones[i].getY())) ) {
-					opc = i + 1;
-					cont++;
-				}
-			}
-		}
-		if(cont > 0) {
-			mouseArriba = true;
-		} else {
-			mouseArriba = false;
-		}
-		
-		for (int i = 0; i < opciones.length; i++) {
-			if (i == (opc - 1)) {
-				opciones[i].setColor(Color.YELLOW);
-			} else {
-				opciones[i].setColor(Color.WHITE);
-			}
-		}
-
-		if ( (entradas.isEnter()) || (entradas.isClick()) ) {
-			if ( (opc == 1) && (entradas.isEnter()) || ( (opc == 1) && (entradas.isClick()) && (mouseArriba) ) ) {
-//				Render.app.setScreen(new PantallaUnJugador());
-				Render.app.setScreen(new PlayScreen());
-				musicaMenu.stop();
-			} else if ( (opc == 2) && (entradas.isEnter()) || ( (opc == 2) && (entradas.isClick()) && (mouseArriba) ) ) {
-				Render.app.setScreen(new PantallaMultijugador());
-				musicaMenu.stop();
-			} else if ( (opc == 3) && (entradas.isEnter()) || ( (opc == 3) && (entradas.isClick()) && (mouseArriba) ) ) {
-				Render.app.setScreen(new PantallaOpciones());
-			} else if ( (opc == 4) && (entradas.isEnter()) || ( (opc == 4) && (entradas.isClick()) && (mouseArriba) ) ) {
-				Render.salir();
-			}
-		}
+	@Override
+	public void resize(int width, int height) {
+		stage.getViewport().update(width, height);
+	}
+	
+	@Override
+	public void dispose() {
+		stage.dispose();
 	}
 
 	@Override
-	public void resize(int width, int height) {
+	public void show() {
 
 	}
+
 
 	@Override
 	public void pause() {
@@ -179,12 +120,5 @@ public class PantallaMenu implements Screen {
 	@Override
 	public void hide() {
 
-	}
-
-	@Override
-	public void dispose() {
-		Render.dispose();
-		//sr.dispose();
-		manager.getManager().dispose();
 	}
 }

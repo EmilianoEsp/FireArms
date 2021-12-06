@@ -1,0 +1,62 @@
+
+atlas-2.png
+size: 1828, 315
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Attack1
+  rotate: false
+  xy: 1015, 113
+  size: 665, 124
+  orig: 736, 137
+  offset: 45, 12
+  index: -1
+Attack2
+  rotate: false
+  xy: 0, 162
+  size: 599, 77
+  orig: 736, 137
+  offset: 75, 12
+  index: -1
+Death
+  rotate: false
+  xy: 0, 0
+  size: 1520, 79
+  orig: 1656, 137
+  offset: 61, 12
+  index: -1
+Fall
+  rotate: false
+  xy: 1368, 238
+  size: 231, 77
+  orig: 368, 137
+  offset: 68, 13
+  index: -1
+Hit
+  rotate: false
+  xy: 599, 160
+  size: 416, 79
+  orig: 552, 137
+  offset: 61, 12
+  index: -1
+Idle
+  rotate: false
+  xy: 0, 79
+  size: 964, 81
+  orig: 1104, 137
+  offset: 71, 12
+  index: -1
+Jump
+  rotate: false
+  xy: 1599, 237
+  size: 229, 78
+  orig: 368, 137
+  offset: 72, 13
+  index: -1
+Run
+  rotate: false
+  xy: 0, 239
+  size: 1368, 76
+  orig: 1472, 137
+  offset: 57, 12
+  index: -1

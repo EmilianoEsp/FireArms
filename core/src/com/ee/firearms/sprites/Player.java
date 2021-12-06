@@ -11,162 +11,180 @@ import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.ee.firearms.FireArms;
 import com.ee.firearms.test2.PlayScreen;
 import com.ee.firearms.utiles.Recursos;
 
-//public class Player extends Sprite {
-//
-//	public World world;
-//	public Body b2Body;
-//	
-//	public Player(PlayScreen screen) {
-//		this.world = screen.getWorld();
-//		definePlayer();
-//		setBounds(0, 0, 32 / Recursos.PPM, 32 / Recursos.PPM);
-//	}
-//
-//	private void definePlayer() {
-//		BodyDef bDef = new BodyDef();
-//		bDef.position.set(32 / Recursos.PPM, 32 / Recursos.PPM);
-//		bDef.type = BodyDef.BodyType.DynamicBody;
-//		b2Body = world.createBody(bDef);
-//		
-//		FixtureDef fDef = new FixtureDef();
-//		CircleShape shape = new CircleShape();
-//		shape.setRadius(6 / Recursos.PPM);
-//		fDef.filter.categoryBits = Recursos.PLAYER_BIT;
-//		fDef.filter.maskBits = Recursos.GROUND_BIT | 
-//							   Recursos.COIN_BIT | 
-//							   Recursos.BRICK_BIT |
-//							   Recursos.ENEMY_BIT |
-//							   Recursos.OBJECT_BIT;
-//		
-//		fDef.shape = shape;
-//		b2Body.createFixture(fDef);
-//		
-//		EdgeShape head = new EdgeShape();
-//		head.set(new Vector2(-2 / Recursos.PPM, 6 / Recursos.PPM), new Vector2(2 / Recursos.PPM, 6 / Recursos.PPM));
-//		fDef.shape = head;
-//		fDef.isSensor = true;
-//		
-//		b2Body.createFixture(fDef).setUserData("head");
-//	}
-//	
-//	public void update(float dt) {
-//		setPosition(b2Body.getPosition().x - getWidth() / 2, b2Body.getPosition().y - getHeight() / 2);
-//	}
-//}
-
 public class Player extends Sprite {
+    public enum State { FALLING, JUMPING, STANDING, RUNNING, DEAD };
+    public State currentState;
+    public State previousState;
 
-	public enum State {FALLING, JUMPING, STANDING, RUNNING};
-	public State currentState, previousState;
-	public World world;
-	public Body b2Body;
-	private TextureRegion playerStand;
-	private Animation<TextureRegion> playerRun, playerJump;
-	private float stateTimer;
-	private boolean runningRight;
-	
-	public Player(PlayScreen screen) {
-		super(screen.getAtlas().findRegion("big_mario"));
-		this.world = screen.getWorld();
-		currentState = State.STANDING;
-		previousState = State.STANDING;
-		stateTimer = 0;
-		runningRight = true;
-		
-		Array<TextureRegion> frames = new Array<TextureRegion>();
-		for(int i = 1; i < 4; i++) {
-			frames.add(new TextureRegion(getTexture(), 1 * i, 11, 16, 16));
-		}
-		playerRun = new Animation<TextureRegion>(0.1f, frames);
-		frames.clear();
-		
-		for(int i = 4; i < 6; i++) {
-			frames.add(new TextureRegion(getTexture(), 1 * i, 11, 16, 16));
-		}
-		playerJump = new Animation<TextureRegion>(0.1f, frames);
-		
-		playerStand = new TextureRegion(getTexture(), 1, 29, 16, 16);
-		
-		definePlayer();
-		setBounds(0, 0, 16 / Recursos.PPM, 16 / Recursos.PPM);
-		setRegion(playerStand);
-	}
+    public World world;
+    public Body b2body;
 
-	private void definePlayer() {
-		BodyDef bDef = new BodyDef();
-		bDef.position.set(32 / Recursos.PPM, 32 / Recursos.PPM);
-		bDef.type = BodyDef.BodyType.DynamicBody;
-		b2Body = world.createBody(bDef);
-		
-		FixtureDef fDef = new FixtureDef();
-		CircleShape shape = new CircleShape();
-		shape.setRadius(6 / Recursos.PPM);
-		fDef.filter.categoryBits = Recursos.PLAYER_BIT;
-		fDef.filter.maskBits = Recursos.GROUND_BIT | 
-							   Recursos.COIN_BIT | 
-							   Recursos.BRICK_BIT |
-							   Recursos.ENEMY_BIT |
-							   Recursos.OBJECT_BIT;
-		
-		fDef.shape = shape;
-		b2Body.createFixture(fDef);
-		
-		EdgeShape head = new EdgeShape();
-		head.set(new Vector2(-2 / Recursos.PPM, 6 / Recursos.PPM), new Vector2(2 / Recursos.PPM, 6 / Recursos.PPM));
-		fDef.shape = head;
-		fDef.isSensor = true;
-		
-		b2Body.createFixture(fDef).setUserData("head");
-	}
-	
-	public void update(float dt) {
-		setPosition(b2Body.getPosition().x - getWidth() / 2, b2Body.getPosition().y - getHeight() / 2);
-		setRegion(getFrame(dt));
-	}
+    private TextureRegion marioStand;
+    private Animation<TextureRegion> marioRun;
+    private Animation<TextureRegion> marioJump;
+    private Animation<TextureRegion> marioIdle;
+    private Animation<TextureRegion> marioAttack;
 
-	private TextureRegion getFrame(float dt) {
-		currentState = getState();
-		
-		TextureRegion region;
-		switch(currentState) {
-		case JUMPING:
-			region = playerJump.getKeyFrame(stateTimer);
-			break;
-		case RUNNING:
-			region = playerRun.getKeyFrame(stateTimer, true);
-			break;
-		case FALLING:
-		case STANDING:
-		default:
-			region = playerStand;
-			break;
-		}
-		
-		if((b2Body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
-			region.flip(true, false);
-			runningRight = false;
-		} else if((b2Body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()) {
-			region.flip(true, false);
-			runningRight = true;
-		}
-		
-		stateTimer = currentState == previousState ? stateTimer + dt : 0;
-		previousState = currentState;
-		return region;
-	}
-	
-	public State getState() {
-		if((b2Body.getLinearVelocity().y > 0) || (b2Body.getLinearVelocity().y < 0 && previousState == State.JUMPING)) {
-			return State.JUMPING;
-		} else if(b2Body.getLinearVelocity().y < 0) {
-			return State.FALLING;
-		} else if(b2Body.getLinearVelocity().x != 0) {
-			return State.RUNNING;
-		} else {
-			return State.STANDING;
-		}
-	}
+    private float stateTimer;
+    private boolean runningRight;
+    private PlayScreen screen;
+
+    public Player(PlayScreen screen){
+        //initialize default values
+        this.screen = screen;
+        this.world = screen.getWorld();
+        currentState = State.STANDING;
+        previousState = State.STANDING;
+        stateTimer = 0;
+        runningRight = true;
+
+        Array<TextureRegion> frames = new Array<TextureRegion>();
+
+        //get run animation frames and add them to marioRun Animation
+        for(int i = 1; i < 6; i++) {
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("Run"), i * 47, 0, 47, 49));
+        }
+        marioRun = new Animation<TextureRegion>(0.1f, frames);
+
+        frames.clear();
+
+        // get attacking animation frames and add them to marioAttack Animation
+//        for(int i = 0; i < 4; i++) {
+//        	frames.add(new TextureRegion(screen.getAtlas().findRegion("Attack1"), i * 16, 0, 16, 32));
+//        }
+//        marioAttack = new Animation<TextureRegion>(0.2f, frames);
+//
+//        frames.clear();
+
+        //get jump animation frames and add them to marioJump Animation
+        for(int i = 1; i < 3; i++) {
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("Jump"), i * 42, 0, 42, 56));
+        }
+        marioJump = new Animation<TextureRegion>(1f, frames);
+        
+//        frames.clear();
+        
+        //create texture region for mario standing
+        marioStand = new TextureRegion(screen.getAtlas().findRegion("Idle"), 0, 0, 44, 56);
+
+        //define mario in Box2d
+        defineMario();
+
+        //set initial values for marios location, width and height. And initial frame as marioStand.
+        setBounds(0, 0, 47 / Recursos.PPM, 56 / Recursos.PPM);
+        setRegion(marioStand);
+
+    }
+
+    public void update(float dt){
+
+    	setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+        //update sprite with the correct frame depending on marios current action
+        setRegion(getFrame(dt));
+    }
+
+    public TextureRegion getFrame(float dt){
+        //get marios current state. ie. jumping, running, standing...
+        currentState = getState();
+
+        TextureRegion region;
+
+        //depending on the state, get corresponding animation keyFrame.
+        switch(currentState){
+            case JUMPING:
+                region = marioJump.getKeyFrame(stateTimer, true);
+                break;
+            case RUNNING:
+                region = marioRun.getKeyFrame(stateTimer, true);
+                break;
+            case FALLING:
+            case STANDING:
+            default:
+                region = marioStand;
+                break;
+        }
+
+        //if mario is running left and the texture isnt facing left... flip it.
+        if((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()){
+            region.flip(true, false);
+            runningRight = false;
+        }
+
+        //if mario is running right and the texture isnt facing right... flip it.
+        else if((b2body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()){
+            region.flip(true, false);
+            runningRight = true;
+        }
+
+        //if the current state is the same as the previous state increase the state timer.
+        //otherwise the state has changed and we need to reset timer.
+        stateTimer = currentState == previousState ? stateTimer + dt : 0;
+        //update previous state
+        previousState = currentState;
+        //return our final adjusted frame
+        return region;
+
+    }
+
+    public State getState(){
+        //Test to Box2D for velocity on the X and Y-Axis
+        //if mario is going positive in Y-Axis he is jumping... or if he just jumped and is falling remain in jump state
+    	if((b2body.getLinearVelocity().y > 0 && currentState == State.JUMPING) || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING))
+            return State.JUMPING;
+        //if negative in Y-Axis mario is falling
+        else if(b2body.getLinearVelocity().y < 0)
+            return State.FALLING;
+        //if mario is positive or negative in the X axis he is running
+        else if(b2body.getLinearVelocity().x != 0)
+            return State.RUNNING;
+        //if none of these return then he must be standing
+        else
+            return State.STANDING;
+    }
+
+    public float getStateTimer(){
+        return stateTimer;
+    }
+
+    public void jump(){
+        if ( currentState != State.JUMPING ) {
+            b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+            currentState = State.JUMPING;
+        }
+    }
+
+    public void defineMario(){
+        BodyDef bdef = new BodyDef();
+        bdef.position.set(32 / FireArms.PPM, 32 / FireArms.PPM);
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        b2body = world.createBody(bdef);
+
+        FixtureDef fdef = new FixtureDef();
+        CircleShape shape = new CircleShape();
+        shape.setRadius(6 / FireArms.PPM);
+        fdef.filter.categoryBits = FireArms.MARIO_BIT;
+        fdef.filter.maskBits = Recursos.GROUND_BIT |
+        		FireArms.COIN_BIT |
+        		FireArms.BRICK_BIT |
+        		FireArms.ENEMY_BIT |
+        		FireArms.OBJECT_BIT |
+        		FireArms.ENEMY_HEAD_BIT |
+                FireArms.ITEM_BIT;
+
+        fdef.shape = shape;
+        b2body.createFixture(fdef).setUserData(this);
+
+        EdgeShape head = new EdgeShape();
+        head.set(new Vector2(-2 / FireArms.PPM, 6 / FireArms.PPM), new Vector2(2 / FireArms.PPM, 6 / FireArms.PPM));
+        fdef.filter.categoryBits = FireArms.MARIO_HEAD_BIT;
+        fdef.shape = head;
+        fdef.isSensor = true;
+
+        b2body.createFixture(fdef).setUserData(this);
+    }
+
 }

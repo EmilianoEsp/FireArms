@@ -37,5 +37,13 @@ public class Render {
 	public static void salir() {
 		Gdx.app.exit();
 	}
+	
+	public static void delay(long milis) {
+		try {
+			Thread.sleep(milis);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

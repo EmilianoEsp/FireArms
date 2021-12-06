@@ -1,0 +1,69 @@
+
+AtlasB.png
+size: 2048, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Attack1
+  rotate: false
+  xy: 0, 212
+  size: 736, 137
+  orig: 736, 137
+  offset: 0, 0
+  index: -1
+Attack2
+  rotate: false
+  xy: 0, 349
+  size: 736, 137
+  orig: 736, 137
+  offset: 0, 0
+  index: -1
+Death
+  rotate: false
+  xy: 0, 760
+  size: 1656, 137
+  orig: 1656, 137
+  offset: 0, 0
+  index: -1
+Fall
+  rotate: false
+  xy: 1472, 623
+  size: 368, 137
+  orig: 368, 137
+  offset: 0, 0
+  index: -1
+Hit
+  rotate: false
+  xy: 0, 0
+  size: 552, 137
+  orig: 552, 137
+  offset: 0, 0
+  index: -1
+Idle
+  rotate: false
+  xy: 0, 486
+  size: 1104, 137
+  orig: 1104, 137
+  offset: 0, 0
+  index: -1
+Jump
+  rotate: false
+  xy: 1656, 760
+  size: 368, 137
+  orig: 368, 137
+  offset: 0, 0
+  index: -1
+Run
+  rotate: false
+  xy: 0, 623
+  size: 1472, 137
+  orig: 1472, 137
+  offset: 0, 0
+  index: -1
+RunB
+  rotate: false
+  xy: 0, 137
+  size: 624, 75
+  orig: 624, 75
+  offset: 0, 0
+  index: -1

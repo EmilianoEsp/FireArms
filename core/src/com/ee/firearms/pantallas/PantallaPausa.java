@@ -1,9 +1,11 @@
 package com.ee.firearms.pantallas;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ee.firearms.elementos.Imagen;
 import com.ee.firearms.elementos.Texto;
 import com.ee.firearms.io.Entradas;
@@ -15,6 +17,7 @@ import com.ee.firearms.utiles.Render;
 public class PantallaPausa implements Screen {
 
 	private Imagen fondo;
+	private SpriteBatch b;
 	private Texto opciones[] = new Texto[2];
 	private String textos[] = { 
 								"Volver al juego",
@@ -29,10 +32,14 @@ public class PantallaPausa implements Screen {
 	
 	private Entradas entradas = new Entradas(this);
 	
-	@Override
-	public void show() {
+	private Game game;
+	
+	public PantallaPausa(Game game) {
+		this.game = game;
+		
 		fondo = new Imagen(Recursos.FONDOMENU_1);
 		fondo.setSize(Config.ANCHO, Config.ALTO);
+		b = Render.sb;
 		
 		musicaJuego = GameAssetManager.manager.get(Recursos.MUSICAJUEGO, Music.class);
 		
@@ -51,12 +58,17 @@ public class PantallaPausa implements Screen {
 		
 		Gdx.input.setInputProcessor(entradas);
 	}
+	
+	@Override
+	public void show() {
+		
+	}
 
 	@Override
 	public void render(float delta) {
 		Render.limpiarPantalla(0, 0, 0, 0);
 		
-		Render.begin();
+		b.begin();
 		
 		fondo.dibujar();
 		
@@ -66,7 +78,7 @@ public class PantallaPausa implements Screen {
 			opciones[i].dibujar();
 		}
 		
-		Render.end();
+		b.end();
 		
 		tiempo += delta;
 		
@@ -118,9 +130,9 @@ public class PantallaPausa implements Screen {
 			if ( ( ((opc == 1) && (entradas.isEnter())) || ((opc == 1) && entradas.isClick() && (mouseArriba)) )) {
 				musicaJuego.setLooping(true);
 				musicaJuego.play();
-				Render.app.setScreen(Render.game);
+//				Render.app.setScreen(Render.game);
 			} else if ( (opc == 2) && (entradas.isEnter()) || ( (opc == 2) && (entradas.isClick()) && (mouseArriba) ) ) {
-				Render.app.setScreen(new PantallaMenu());
+//				game.setScreen(screen);
 			}
 			
 		}

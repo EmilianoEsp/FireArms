@@ -25,8 +25,11 @@ public class GameAssetManager {
 	}
 
 	private void cargarMusica() {
-		manager.load("musica/music_1.wav", Music.class);
-		manager.load(Recursos.MUSICAMENU, Music.class);
+		manager.load(Recursos.MUSICA_1, Music.class);
+		manager.load(Recursos.MUSICA_2, Music.class);
+		manager.load(Recursos.MUSICA_3, Music.class);
+		manager.load(Recursos.MUSICA_4, Music.class);
+		manager.load(Recursos.MUSICA_5, Music.class);
 		manager.load(Recursos.MUSICAJUEGO, Music.class);
 	}
 	

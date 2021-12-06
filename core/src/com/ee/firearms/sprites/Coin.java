@@ -1,40 +1,36 @@
 package com.ee.firearms.sprites;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
-import com.badlogic.gdx.math.Rectangle;
-import com.ee.firearms.scenes.Hud;
+import com.ee.firearms.FireArms;
+import com.ee.firearms.test2.Mario;
 import com.ee.firearms.test2.PlayScreen;
-import com.ee.firearms.utiles.GameAssetManager;
-import com.ee.firearms.utiles.Recursos;
 
 public class Coin extends InteractiveTileObject {
+    private static TiledMapTileSet tileSet;
+    private final int BLANK_COIN = 28;
 
-	private static TiledMapTileSet tileSet;
-	private final int BLANK_COIN = 62;
-	
-	public Coin(PlayScreen screen, Rectangle bounds) {
-		super(screen, bounds);
-		tileSet = map.getTileSets().getTileSet("Tileset-v2");
-		fixture.setUserData(this);
-		setCategoryFilter(Recursos.COIN_BIT);
-	}
+    public Coin(PlayScreen screen, MapObject object){
+        super(screen, object);
+//        tileSet = map.getTileSets().getTileSet("tileset_gutter");
+        fixture.setUserData(this);
+        setCategoryFilter(FireArms.COIN_BIT);
+    }
 
-	@Override
-	public void onHeadHit() {
-		Gdx.app.log("Coin", "Collision");
-		
-		if(getCell().getTile().getId() == BLANK_COIN) {
-			GameAssetManager.manager.get("sonidos/bump.wav", Sound.class);
-		} else {
-			GameAssetManager.manager.get("sonidos/coin.wav", Sound.class);
-		}
-		
-		getCell().setTile(tileSet.getTile(BLANK_COIN));
-		Hud.addScore(100);
-		
-		
-	}
-
+    @Override
+    public void onHeadHit(Mario mario) {
+//        if(getCell().getTile().getId() == BLANK_COIN)
+//            FireArms.manager.get("audio/sounds/bump.wav", Sound.class).play();
+//        else {
+//            if(object.getProperties().containsKey("mushroom")) {
+//                screen.spawnItem(new ItemDef(new Vector2(body.getPosition().x, body.getPosition().y + 16 / MarioBros.PPM),
+//                        Mushroom.class));
+//                FireArms.manager.get("audio/sounds/powerup_spawn.wav", Sound.class).play();
+//            }
+//            else
+//            	FireArms.manager.get("audio/sounds/coin.wav", Sound.class).play();
+//            getCell().setTile(tileSet.getTile(BLANK_COIN));
+//            Hud.addScore(100);
+//        }
+    }
 }

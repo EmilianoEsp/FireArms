@@ -44,8 +44,8 @@ public class Entradas implements InputProcessor {
 	@Override
 	public boolean keyDown(int keycode) {
 		
-		if (appMenu != null) appMenu.tiempo = 0.08f;
-		if ( appOpc != null) appOpc.tiempo = 0.08f;
+//		if (appMenu != null) appMenu.tiempo = 0.08f;
+//		if ( appOpc != null) appOpc.tiempo = 0.08f;
 		if (appPa != null) appPa.tiempo = 0.08f;
 		
 		if(keycode == Keys.DOWN) {

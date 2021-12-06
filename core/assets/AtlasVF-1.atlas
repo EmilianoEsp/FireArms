@@ -1,0 +1,27 @@
+
+AtlasVF-1.png
+size: 1024, 64
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Idle
+  rotate: false
+  xy: 380, 0
+  size: 177, 56
+  orig: 192, 56
+  offset: 0, 0
+  index: -1
+Jump
+  rotate: false
+  xy: 557, 0
+  size: 84, 56
+  orig: 96, 56
+  offset: 0, 0
+  index: -1
+Run
+  rotate: false
+  xy: 0, 7
+  size: 380, 49
+  orig: 384, 50
+  offset: 0, 1
+  index: -1

@@ -12,6 +12,7 @@ public class DesktopLauncher {
 		config.title = Config.TITLE;
 		config.width = Config.ANCHO;
 		config.height = Config.ALTO;
+		config.foregroundFPS = 60;
 		config.resizable = false;
 		config.addIcon(Config.ICONO, FileType.Internal);
 		new LwjglApplication(new FireArms(), config);
